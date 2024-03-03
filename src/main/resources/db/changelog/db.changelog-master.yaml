@@ -1,0 +1,15 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: Dmitrii Kuznetcov
+      changes:
+        - sqlFile:
+            path: sql/V1__init_tables.sql
+            relativeToChangelogFile: true
+  - changeSet:
+      id: 2
+      author: Dmitrii Kuznetcov
+      changes:
+        - sqlFile:
+            path: sql/V2__test_data.sql
+            relativeToChangelogFile: true

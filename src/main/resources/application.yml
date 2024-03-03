@@ -1,0 +1,51 @@
+spring:
+  main:
+    banner-mode: off
+    web-application-type: servlet
+  application:
+    name: device-management-service
+  kafka:
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.fancycomp.devicebooking.messaging.dto"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: localhost:29092
+  datasource:
+    url: jdbc:postgresql://localhost:5432/device-management
+    username: myuser
+    password: secret
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      max-lifetime: 240000
+      maximum-pool-size: 3
+springdoc:
+  show-login-endpoint: true
+
+device-management:
+  state-changed-topic: "device-management-state-changed"
+  state-changed-group-id: "device-management-state-changed-group"
+
+server:
+  shutdown: graceful
+  port: 8080
+
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  endpoint:
+    health:
+      probes:
+        enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true
